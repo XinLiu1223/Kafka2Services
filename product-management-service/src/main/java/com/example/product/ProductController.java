@@ -1,5 +1,6 @@
 package com.example.product;
 
+import com.example.product.dto.CheckProductStockResponse;
 import com.example.product.dto.ProductStockCheckRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +18,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<String> checkStock(
+    public ResponseEntity<CheckProductStockResponse> checkStock(
             @RequestBody ProductStockCheckRequest productStockCheckRequest
     ) {
-        stockConsumer.checkStock(productStockCheckRequest);
-
-        return ResponseEntity.accepted().body("product stock check request sent" +
-                        " - productId: "
-                        + productStockCheckRequest.productId()
-                );
+        CheckProductStockResponse productStockRes = stockConsumer.checkStock(productStockCheckRequest);
+        System.out.println("product stock check request sent" +
+                " - productId: "
+                + productStockCheckRequest.productId());
+        return ResponseEntity.accepted().body(productStockRes);
     }
 }

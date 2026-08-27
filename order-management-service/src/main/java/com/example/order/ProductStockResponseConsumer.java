@@ -1,11 +1,19 @@
 package com.example.order;
 
 import com.example.order.dto.ProductStockResponse;
+import com.example.order.service.StockResponseManager;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductStockResponseConsumer {
+    private final StockResponseManager responseManager;
+
+    public ProductStockResponseConsumer(
+            StockResponseManager responseManager) {
+
+        this.responseManager = responseManager;
+    }
 
     @KafkaListener(
             topics = "product-stock-response",
@@ -19,5 +27,7 @@ public class ProductStockResponseConsumer {
         } else {
             System.out.println("Order " + response.orderId() + " cannot proceed.");
         }
+
+        responseManager.complete(response);
     }
 }

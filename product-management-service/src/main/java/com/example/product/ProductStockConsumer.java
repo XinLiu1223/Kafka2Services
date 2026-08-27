@@ -21,7 +21,7 @@ public class ProductStockConsumer {
             topics = "product-stock-check",
             groupId = "product-management-group"
     )
-    public void checkStock(ProductStockCheckRequest request) {
+    public CheckProductStockResponse checkStock(ProductStockCheckRequest request) {
         int availableStock = 10;
 
         boolean available =
@@ -45,5 +45,7 @@ public class ProductStockConsumer {
                 request.orderId(),
                 response
         );
+
+        return response;
     }
 }

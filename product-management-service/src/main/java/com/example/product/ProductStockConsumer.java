@@ -27,6 +27,10 @@ public class ProductStockConsumer {
         boolean available =
                 availableStock >= request.quantity();
 
+        System.out.println("this stock check request payload can be " +
+                "from the MQ by order service or direct request" +
+                " from product service: " + request);
+
         CheckProductStockResponse response = new CheckProductStockResponse(
                 request.orderId(),
                 request.productId(),

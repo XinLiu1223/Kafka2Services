@@ -24,6 +24,6 @@ public class OrderController {
         producer.sendStockCheck(request);
 
         return ResponseEntity.accepted()
-                .body("Order request accepted: " + request.orderId());
+                .body("Order request sent - orderId: " + request.orderId());
     }
 }
